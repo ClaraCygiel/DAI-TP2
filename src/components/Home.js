@@ -1,13 +1,44 @@
-import { StyleSheet, Text, View, TextInput,Button} from 'react-native';
+import { useState } from 'react';
+import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import axios from 'axios';
 
 export default function Home() {
+  const [error, setError] = useState(false)
+  const [obj, setObj] = useState({
+    email: "challenge@alkemy.org",
+    password: "react",
+  });
+
+
+  const handleEmail = (email) => {
+    setObj({ ...obj, email: email })
+  }
+  const handlePassword = (password) => {
+    setObj({ ...obj, password: password })
+  }
+  const onPressFunction = () => {
+
+    const client = axios.create({ baseURL: 'http://challenge-react.alkemy.org/' })
+    client.post('', obj)
+      .then(response => { console.log(response.data); setError(false) }).catch(error => {
+        console.log(error)
+        setError(true)
+
+      })
+
+
+    // guardar el token en el context state
+
+    
+  
+  }
   return (
     <View style={styles.container}>
-      <TextInput placeholder='Email' />
-      <Text style={styles.textred}>Ingrese un mail por favor</Text>
-      <TextInput placeholder='Password'/>
-      <Text style={styles.textred}>Debe ingresar una contraseña</Text>
-      <Button title="enviar"onPress={() => console.log("Enviar")}/>
+      <TextInput placeholder='Email' onChangeText={handleEmail} value={obj.email} />
+      {error && <Text style={styles.textred}>Ingrese un mail por favor</Text>}
+      <TextInput placeholder='Password' onChangeText={handlePassword} value={obj.password} />
+      {error && <Text style={styles.textred}>Debe ingresar una contraseña</Text>}
+      <Button title="enviar" onPress={onPressFunction} />
     </View>
   );
 }
@@ -20,8 +51,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  textred:{
-    color:"red",
+  textred: {
+    color: "red",
   }
-  
+
 });
