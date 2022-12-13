@@ -43,6 +43,10 @@ export default function Home() {
   );
 }
 
+//El boton enviar me tiene que llevar a otra pagina donde esten los botones de las 3 funcionalidades y el del codigo qr
+
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -54,5 +58,7 @@ const styles = StyleSheet.create({
   textred: {
     color: "red",
   }
+
+  
 
 });

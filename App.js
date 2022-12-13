@@ -12,6 +12,8 @@ export default function App() {
   );
 }
 
+//exportar todos los files
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
