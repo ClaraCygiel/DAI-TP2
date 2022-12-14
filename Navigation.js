@@ -1,5 +1,3 @@
-//botones de las funcionalides
-
 import React from 'react';
 import { StyleSheet, Button, View, SafeAreaView, Text, Alert } from 'react-native';
 
@@ -7,34 +5,34 @@ const Separator = () => (
   <View style={styles.separator} />
 );
 
-const App = () => (
+const Navigation = ({navigation}) => (
   <SafeAreaView style={styles.container}>
     <View>
       <Button
         title="Configuracion Numero de emergencia"
-        onPress={() => Alert.alert('Simple Button pressed')}
+        onPress={() => navigation.navigate('navigation')
+      }
       />
     </View>
     <Separator />
     <View>
       <Button
         title="Contactos"
-        color="#f194ff"
-        onPress={() => Alert.alert('Button with adjusted color pressed')}
+       onPress={() =>navigation.navigate('contactos')}
+
       />
     </View>
     <Separator />
     <View>
       <Button
         title="About"
-        disabled
         onPress={() => Alert.alert('Cannot press this one')}
       />
     </View>
     <Separator />
     <View>
      
-      <View style={styles.fixToText}>
+      <View>
         <Button
           title="Hora Actual/temperatura"
           onPress={() => Alert.alert('Left button pressed')}
@@ -52,7 +50,7 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    marginVertical: 8,
+    marginVertical: 10,
   },
   fixToText: {
     flexDirection: 'row',
@@ -65,4 +63,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default Navigation;

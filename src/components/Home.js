@@ -1,14 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import axios from 'axios';
+import { ActionTypes, useContextState } from '../../contextState';
 
-export default function Home() {
+export default function Home({ navigation }) {
   const [error, setError] = useState(false)
   const [obj, setObj] = useState({
     email: "challenge@alkemy.org",
     password: "react",
   });
-
+  const { contextState, setContextState } = useContextState();
 
   const handleEmail = (email) => {
     setObj({ ...obj, email: email })
@@ -20,17 +21,23 @@ export default function Home() {
 
     const client = axios.create({ baseURL: 'http://challenge-react.alkemy.org/' })
     client.post('', obj)
-      .then(response => { console.log(response.data); setError(false) }).catch(error => {
+      .then(response => {
+        console.log(response.data);
+        setError(false);
+
+        setContextState({
+          type: ActionTypes.setToken,
+          value: response.data,
+        });
+
+        navigation.navigate('Navigation')
+      }).catch(error => {
         console.log(error)
         setError(true)
 
+
       })
 
-
-    // guardar el token en el context state
-
-    
-  
   }
   return (
     <View style={styles.container}>
@@ -59,6 +66,6 @@ const styles = StyleSheet.create({
     color: "red",
   }
 
-  
+
 
 });
