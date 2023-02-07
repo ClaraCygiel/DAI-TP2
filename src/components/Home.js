@@ -50,7 +50,7 @@ export default function Home({ navigation }) {
   );
 }
 
-//El boton enviar me tiene que llevar a otra pagina donde esten los botones de las 3 funcionalidades y el del codigo qr
+ //El boton enviar me tiene que llevar a otra pagina donde esten los botones de las 3 funcionalidades y el del codigo qr
 
 
 

@@ -10,7 +10,7 @@ const Navigation = ({navigation}) => (
     <View>
       <Button
         title="Configuracion Numero de emergencia"
-        onPress={() => navigation.navigate('navigation')
+        onPress={() => navigation.navigate('Navigation')
       }
       />
     </View>

@@ -7,6 +7,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Navigation from './Navigation';
 import  Contactos from './contactos';
+import  ConfiguracionContactoEmergencia from './Confnumemergencia';
+import about from './about';
+import horactualtemperatura from './horactualtemperatura';
 export default function App() {
 
   const Stack = createNativeStackNavigator();
@@ -25,10 +28,25 @@ export default function App() {
           component={Navigation}
           options={{title:'Navigation'}}
           />
+           <Stack.Screen
+          name="ConfiguracionContactoEmergencia"
+          component={ConfiguracionContactoEmergencia}
+          options={{title:'ConfiguracionContactoEmergencia'}}
+          />
           <Stack.Screen
-          name="contactos"
+          name="Contactos"
           component={Contactos}
-          options={{title:'contactos'}}
+          options={{title:'Contactos'}}
+          />
+           <Stack.Screen
+          name="about"
+          component={about}
+          options={{title:'about'}}
+          />
+           <Stack.Screen
+          name="horactualtemperatura"
+          component={horactualtemperatura}
+          options={{title:'horactualtempratura'}}
           />
         </Stack.Navigator>
       </NavigationContainer>

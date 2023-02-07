@@ -3,7 +3,7 @@ import { Text, StyleSheet, FlatList, View, Vibration } from "react-native"
 import * as Contacts from "expo-contacts"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
-const configuracionContactoEmergencia = ({ navigation }) => {
+const ConfiguracionContactoEmergencia = ({ navigation }) => {
   const [contacts, setContacts] = useState([])
   const [emergencyContact, setEmergencyContact] = useState("")
 
@@ -57,4 +57,4 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
 })
-export default configuracionContactoEmergencia
+export default ConfiguracionContactoEmergencia
