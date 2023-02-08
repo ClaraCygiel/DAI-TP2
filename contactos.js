@@ -25,7 +25,7 @@ const Contactos = () => {
   
         if (data.length > 0) {
           const contact = data[0];
-          console.log(contact);
+          console.log(contact.phoneNumbers);
           setContactos(data);
         }
       }
@@ -35,10 +35,12 @@ const Contactos = () => {
 
   const renderItem= ({ item }) => {
 
-   
-
-    return (
-      <Text>{item.name}</Text>
+    return (<>
+     <Text>{item.name}</Text>
+      <Text>{item?.phoneNumbers && item?.phoneNumbers[0] && item?.phoneNumbers[0].number}</Text>
+    </>
+     
+      
     );
   };
 

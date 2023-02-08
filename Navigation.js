@@ -10,7 +10,7 @@ const Navigation = ({navigation}) => (
     <View>
       <Button
         title="Configuracion Numero de emergencia"
-        onPress={() => navigation.navigate('Navigation')
+        onPress={() => navigation.navigate('ConfiguracionContactoEmergencia')
       }
       />
     </View>
@@ -18,7 +18,7 @@ const Navigation = ({navigation}) => (
     <View>
       <Button
         title="Contactos"
-       onPress={() =>navigation.navigate('contactos')}
+       onPress={() =>navigation.navigate('Contactos')}
 
       />
     </View>
@@ -26,7 +26,7 @@ const Navigation = ({navigation}) => (
     <View>
       <Button
         title="About"
-        onPress={() => Alert.alert('Cannot press this one')}
+        onPress={() => navigation.navigate('About')}
       />
     </View>
     <Separator />
@@ -34,8 +34,8 @@ const Navigation = ({navigation}) => (
      
       <View>
         <Button
-          title="Hora Actual/temperatura"
-          onPress={() => Alert.alert('Left button pressed')}
+          title="Clima"
+          onPress={() => navigation.navigate('Clima')}
         />
       </View>
     </View>

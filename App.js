@@ -8,8 +8,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Navigation from './Navigation';
 import  Contactos from './contactos';
 import  ConfiguracionContactoEmergencia from './Confnumemergencia';
-import about from './about';
-import horactualtemperatura from './horactualtemperatura';
+import About from './About';
+import Clima from './horactualtemperatura';
 export default function App() {
 
   const Stack = createNativeStackNavigator();
@@ -39,14 +39,14 @@ export default function App() {
           options={{title:'Contactos'}}
           />
            <Stack.Screen
-          name="about"
-          component={about}
-          options={{title:'about'}}
+          name="About"
+          component={About}
+          options={{title:'About'}}
           />
            <Stack.Screen
-          name="horactualtemperatura"
-          component={horactualtemperatura}
-          options={{title:'horactualtempratura'}}
+          name="Clima"
+          component={Clima}
+          options={{title:'Clima'}}
           />
         </Stack.Navigator>
       </NavigationContainer>
