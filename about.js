@@ -5,15 +5,7 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 const About = ({navigation}) => {
   const [mostrarQR, setMostrarQR] = useState(true);
 
-  useEffect(async() => {
-    const permiso = await BarCodeScanner.requestPermissionsAsync();
-    if(permiso.status != "granted"){
-      console.error("Permiso denegado")
-      Vibration.vibrate()
-      alert("Permiso denegado")
-      navigation.navigate("Home")
-    }
-}, []);
+ 
 
   const alertar = (alertar) => {
     alert(alertar.data);

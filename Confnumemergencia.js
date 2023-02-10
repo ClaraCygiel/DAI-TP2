@@ -1,54 +1,51 @@
-import * as Contacts from 'expo-contacts';
-import React, {  useEffect, useState } from 'react';
-import { StyleSheet, View, Text, FlatList, SafeAreaView} from 'react-native';
-import { useNavigation } from "@react-navigation/native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect, useState } from 'react'
+import { Text, StyleSheet, FlatList, View, Vibration } from "react-native"
+import * as Contacts from "expo-contacts"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
-const ConfiguracionContactoEmergencia = ({ navigation }) => {
+const configuracionContactoEmergencia = ({ navigation }) => {
   const [contacts, setContacts] = useState([])
   const [emergencyContact, setEmergencyContact] = useState("")
 
-
-
-
-  useEffect(() => {
-    const traerNumSaved = async () => {
-        setEmergencyContact(await AsyncStorage.getItem("celu"));
+  useEffect(async() => {
+    const permiso = await Contacts.requestPermissionsAsync()
+    if (permiso.status != "granted") {
+      console.error("Permiso denegado")
+      Vibration.vibrate()
+      alert("Permiso denegado")
+      navigation.navigate("Home")
     }
-    traerNumSaved();
-    console.log("Contacto de emergencia:", emergencyContact)
-  }, []);
+      const contactos = await Contacts.getContactsAsync()
+      setContacts(contactos.data)
+      const contactoEmergencia = await AsyncStorage.getItem("contactoEmergencia")
+      setEmergencyContact(contactoEmergencia)
+  }, [])
+
+  const renderItem = ({ item }) => {
+    return (
+      <View>
+        <Text
+          onPress={() => {
+            AsyncStorage.setItem("contactoEmergencia", item.id)
+            navigation.navigate("Home")
+          }}
+        >
+          {item.name}{item.id === emergencyContact ? " // Contacto de emergencia" : ""}
+        </Text>
+        <View style={styles.separator}/>
+      </View>
+    )
+  }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={{marginBottom:'7%'}}>Contacto emergencia</Text>
-      <FlatList 
-      data={contacts} 
-      
+    <FlatList
+      data={contacts}
+      renderItem={renderItem}
       keyExtractor={item => item.id}
-
-      renderItem={({item}) =>{
-      return(
-      <View style={styles.contactosEstilo}>
-        <Text style={{bottom:4}}>Nombre: {item.name}</Text>
-        <Text style={{bottom:4}}>Num: {item.phoneNumbers[0].number}</Text>  
-        {item.phoneNumbers && item.phoneNumbers[0].number == emergencyContact (
-          <>
-          <View style={styles.contactoEmergencia}>
-          <Text style={{color: "black"}}>CONTACTO DE EMERGENCIA</Text>
-            </View></>
-          )}: (null)
-       {} 
-      </View>
-      )}
-    } 
-      
-       />
-    </SafeAreaView>
-  );
+    />
+  )
 }
 
-  
 const styles = StyleSheet.create({
   body: {
     paddingTop: 30,
@@ -56,8 +53,8 @@ const styles = StyleSheet.create({
   },
   separator: {
     marginVertical: 8,
-    borderBottomColor: '#0a0005',
+    borderBottomColor: '#737373',
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
 })
-export default ConfiguracionContactoEmergencia
+export default configuracionContactoEmergencia
