@@ -29,9 +29,9 @@ export default function App() {
           options={{title:'Navigation'}}
           />
            <Stack.Screen
-          name="Confnumemergencia"
+          name="ConfiguracionContactoEmergencia"
           component={Confnumemergencia}
-          options={{title:'Confnumemergencia'}}
+          options={{title:'ConfiguracionContactoEmergencia'}}
           />
           <Stack.Screen
           name="Contactos"

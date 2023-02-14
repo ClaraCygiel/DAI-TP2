@@ -1,60 +1,39 @@
 import { useEffect, useState } from 'react'
-import { Text, StyleSheet, FlatList, View, Vibration } from "react-native"
-import * as Contacts from "expo-contacts"
+import {  StyleSheet, View, Button,TextInput} from "react-native"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
-const configuracionContactoEmergencia = ({ navigation }) => {
-  const [contacts, setContacts] = useState([])
-  const [emergencyContact, setEmergencyContact] = useState("")
 
-  useEffect(async() => {
-    const permiso = await Contacts.requestPermissionsAsync()
-    if (permiso.status != "granted") {
-      console.error("Permiso denegado")
-      Vibration.vibrate()
-      alert("Permiso denegado")
-      navigation.navigate("Home")
-    }
-      const contactos = await Contacts.getContactsAsync()
-      setContacts(contactos.data)
-      const contactoEmergencia = await AsyncStorage.getItem("contactoEmergencia")
-      setEmergencyContact(contactoEmergencia)
-  }, [])
+const ConfiguracionContactoEmergencia = ({ navigation }) => {
+  const [number, setNumber] = useState()
 
-  const renderItem = ({ item }) => {
-    return (
-      <View>
-        <Text
-          onPress={() => {
-            AsyncStorage.setItem("contactoEmergencia", item.id)
-            navigation.navigate("Home")
-          }}
-        >
-          {item.name}{item.id === emergencyContact ? " // Contacto de emergencia" : ""}
-        </Text>
-        <View style={styles.separator}/>
-      </View>
-    )
+  useEffect(()=>{
+
+    (async()=>{
+      const item=await AsyncStorage.getItem("Emergencia")
+      setNumber(item)
+    })();
+  },[])
+  const onPressFunction = () => {
+    AsyncStorage.setItem("Emergencia",number)
+
   }
-
   return (
-    <FlatList
-      data={contacts}
-      renderItem={renderItem}
-      keyExtractor={item => item.id}
-    />
-  )
+    <View style={styles.container}>
+     
+     <TextInput placeholder='Emergencia' onChangeText={setNumber} value={number}/>
+      <Button title="Guardar" onPress={onPressFunction} />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-  body: {
-    paddingTop: 30,
-    margin:10
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  separator: {
-    marginVertical: 8,
-    borderBottomColor: '#737373',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-})
-export default configuracionContactoEmergencia
+});
+
+export default ConfiguracionContactoEmergencia
+
